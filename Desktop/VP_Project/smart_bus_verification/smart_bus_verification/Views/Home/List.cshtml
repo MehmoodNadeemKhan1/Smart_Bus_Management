@@ -1,0 +1,273 @@
+﻿@model IEnumerable<smart_bus_verification.Models.Student>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<style>
+    .list{
+        padding:20px;
+        margin-top:100px;
+       
+    }
+.addbutton {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  float:right;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom:14px;
+  margin-right:6px;
+}
+
+.addbutton:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+    .show {
+        z-index: 999;
+        display: none;
+    }
+
+        .show .overlay {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .66);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .show .img-show {
+            width: 900px;
+            height: 700px;
+            background: #FFF;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+        }
+
+    .img-show span {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 99;
+        cursor: pointer;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .img-show img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /* Navigation Icons */
+    .nav-icon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        cursor: pointer;
+        background-color: white;
+        color: black
+    }
+
+    .left-icon {
+        left: 10px;
+    }
+
+    .right-icon {
+        right: 10px;
+    }
+</style>
+<div class="list">
+
+
+<h1>Student Detail List</h1>
+
+
+    <button class="addbutton">
+        <a style="text-decoration:none;" asp-action="AdminIndex"> Main Page</a>
+    </button>
+
+<button class="addbutton">
+    <a style="text-decoration:none;" asp-action="Create"> Add student</a>
+</button>
+
+
+<div class="input-group mb-3">
+        <input type="text" class="form-control" id="search" oninput="filterTable()" placeholder="Search ......" aria-label="Recipient's username">
+        <div class="input-group-append">
+        </div>
+    </div>
+
+<form method="post">
+    <table class="table table-primary">
+        <thead>
+            <tr>
+
+                <th>
+                    Selection
+                </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Roll)
+                </th>
+                    <th>
+                    @Html.DisplayNameFor(model => model.Voucherimage)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-success">
+                    <td>
+                        <input type="checkbox" name="selectedIds" value="@item.StudentId" />
+                    </td>
+                    <td>
+                            <div class="popup" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%;">
+
+                                <img class="img-fluid" src="../images/@Html.DisplayFor(modelItem => item.image)" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; border-radius: 50%;" alt="Image" />
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Roll)
+                    </td>
+                        <td class="popup">
+
+
+                            <img src="../images/@Html.DisplayFor(modelItem => item.Voucherimage)" class="img-fluid" alt="Image" style="width: 100px; height: 100px;" />
+                       
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <button asp-action="SelectedDelete" type="submit" class="btn btn-secondary">Delete Selected</button>
+    <button asp-action="ResetAvailability" type="submit" class="btn btn-danger">Show Card</button>
+    <button asp-action="ResetAvailabilityFalse" type="submit" class="btn btn-success">Disable Card</button>
+</form>
+
+<script>
+
+
+    function filterTable() {
+        var input, filter, table, tr, tdRoll, tdName, i, txtValueRoll, txtValueName;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            tdRoll = tr[i].getElementsByTagName("td")[3]; // Roll Number column index
+            tdName = tr[i].getElementsByTagName("td")[2]; // Name column index
+
+            if (tdRoll && tdName) {
+                txtValueRoll = tdRoll.textContent || tdRoll.innerText;
+                txtValueName = tdName.textContent || tdName.innerText;
+
+            
+                if (txtValueRoll.toUpperCase().indexOf(filter) > -1 || txtValueName.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+</div>
+
+<div class="show">
+    <div class="overlay"></div>
+    <div class="img-show">
+        <img src="">
+    </div>
+    <span class="nav-icon left-icon">&#9665;</span>
+    <span class="nav-icon right-icon">&#9655;</span>
+</div>
+
+
+<script>
+    $(function () {
+        "use strict";
+
+        var currentImageIndex = 0;
+
+        $(".popup img").click(function () {
+            currentImageIndex = $(this).index();
+            showImage();
+        });
+
+        $(".left-icon").click(function () {
+            showImage(-1);
+        });
+
+        $(".right-icon").click(function () {
+            showImage(1);
+        });
+
+        $(".close-icon, .overlay").click(function () {
+            $(".show").fadeOut();
+        });
+
+        function showImage(offset = 0) {
+            currentImageIndex += offset;
+            var $images = $(".popup img");
+            if (currentImageIndex < 0) {
+                currentImageIndex = $images.length - 1;
+            } else if (currentImageIndex >= $images.length) {
+                currentImageIndex = 0;
+            }
+            var $src = $images.eq(currentImageIndex).attr("src");
+            $(".show").fadeIn();
+            $(".img-show img").attr("src", $src);
+        }
+    });
+</script>

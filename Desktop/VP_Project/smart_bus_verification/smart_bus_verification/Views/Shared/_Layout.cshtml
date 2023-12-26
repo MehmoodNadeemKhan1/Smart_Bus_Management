@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - smart_bus_verification</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<partial name="_HeaderPartial" />
+
+<main role="main">
+    <div id="preloader"></div>
+    @RenderBody()
+</main>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+
+<script>
+    window.addEventListener('load', () => {
+        let preloader = document.getElementById('preloader');
+
+        if (preloader) {
+            preloader.remove();
+        }
+    });
+</script>
+
+</html>

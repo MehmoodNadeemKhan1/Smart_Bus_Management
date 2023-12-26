@@ -1,0 +1,96 @@
+﻿@model smart_bus_verification.ExpendUpload
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/css/Createcss.css">
+
+<style>
+    .backbutton {
+        background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+        border-radius: .5rem;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        display: flex;
+        font-size: 16px;
+        justify-content: center;
+        padding: 1rem 1.75rem;
+        text-decoration: none;
+        width: 100%;
+        border: 0;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .backbutton:hover {
+            background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+        }
+
+</style>
+
+<body>
+
+<h1>Add Expenditures</h1>
+<hr />
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="formbold-mb-5">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="formbold-mb-5">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="formbold-mb-5">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+                <div class="formbold-mb-5">
+
+                <label asp-for="ReceiptReference" class="control-label"></label>
+                <input asp-for="ReceiptReference" class="form-control" />
+                <span asp-validation-for="ReceiptReference" class="text-danger"></span>
+        </div>
+
+
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5 w-full">
+                        <label asp-for="DateOfExpenditure" class="control-label"></label>
+                        <input asp-for="DateOfExpenditure" class="form-control" />
+                        <span asp-validation-for="DateOfExpenditure" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label asp-for="ReceiptPhoto" class="control-label"></label>
+                        <input asp-for="ReceiptPhoto" class="form-control" />
+                        <span asp-validation-for="ReceiptPhoto" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="backbutton mb-2">Add Detail </button>
+            </div>
+
+            <div>
+                    <button class="backbutton" asp-action="Index">Back to List</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    </body>

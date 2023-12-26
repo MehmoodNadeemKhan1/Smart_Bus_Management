@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\smart_bus_verification.props" />
+</Project>

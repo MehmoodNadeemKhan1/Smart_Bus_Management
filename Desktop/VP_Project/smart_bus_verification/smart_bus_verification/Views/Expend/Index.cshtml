@@ -1,0 +1,234 @@
+﻿@model IEnumerable<smart_bus_verification.Models.Expenditures>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<style>
+    .ExpendDetail {
+        padding: 20px;
+        margin-top: 100px;
+    }
+
+    .addbutton {
+        background-color: #c2fbd7;
+        border-radius: 100px;
+        float: right;
+        box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+        color: green;
+        cursor: pointer;
+        display: inline-block;
+        font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+        padding: 7px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        margin-bottom: 14px;
+        margin-right:6px;
+    }
+
+        .addbutton:hover {
+            box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+    .show {
+        z-index: 999;
+        display: none;
+    }
+
+        .show .overlay {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .66);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .show .img-show {
+            width: 800px;
+            height: 600px;
+            background: #FFF;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+        }
+
+    .img-show span {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 99;
+        cursor: pointer;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .img-show img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-icon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        cursor: pointer;
+        background-color: white;
+        color: black
+    }
+
+    .left-icon {
+        left: 10px;
+    }
+
+    .right-icon {
+        right: 10px;
+    }
+
+</style>
+<div class="ExpendDetail">
+
+
+<h1>Expenditures</h1>
+
+    <button class="addbutton">
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="AdminIndex"> Main Page</a>
+    </button>
+
+
+    <button class="addbutton">
+        <a style="text-decoration:none;" asp-action="Create"> Add Expense</a>
+    </button>
+
+
+    @* <div class="input-group mb-3">
+        <input type="text" class="form-control" id="search" oninput="filterTable()" placeholder="Search ......" aria-label="Recipient's username">
+        <div class="input-group-append">
+        </div>
+    </div> *@
+
+    <table class="table  table-primary">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.DateOfExpenditure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiptImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiptReference)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="table-success">
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                        @Html.DisplayFor(modelItem => item.DateOfExpenditure)
+            </td>
+                    <td class="popup">
+                        <img src="../images/@Html.DisplayFor(modelItem => item.ReceiptImage)" class="img-fluid" alt="Image" style="width: 100px; height: 100px;" />
+
+               
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiptReference)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.ExpenditureID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+                </div>
+<div class="show">
+    <div class="overlay"></div>
+    <div class="img-show">
+        <img src="">
+    </div>
+    <span class="nav-icon left-icon">&#9665;</span>
+    <span class="nav-icon right-icon">&#9655;</span>
+</div>
+
+    <script>
+        $(function () {
+            "use strict";
+
+            var currentImageIndex = 0;
+
+            $(".popup img").click(function () {
+                currentImageIndex = $(this).index();
+                showImage();
+            });
+
+            $(".left-icon").click(function () {
+                showImage(-1);
+            });
+
+            $(".right-icon").click(function () {
+                showImage(1);
+            });
+
+            $(".close-icon, .overlay").click(function () {
+                $(".show").fadeOut();
+            });
+
+            function showImage(offset = 0) {
+                currentImageIndex += offset;
+                var $images = $(".popup img");
+                if (currentImageIndex < 0) {
+                    currentImageIndex = $images.length - 1;
+                } else if (currentImageIndex >= $images.length) {
+                    currentImageIndex = 0;
+                }
+                var $src = $images.eq(currentImageIndex).attr("src");
+                $(".show").fadeIn();
+                $(".img-show img").attr("src", $src);
+            }
+        });
+
+</script>

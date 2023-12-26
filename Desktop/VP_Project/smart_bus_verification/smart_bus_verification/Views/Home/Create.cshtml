@@ -1,0 +1,138 @@
+﻿@model smart_bus_verification.Models.FileUpload
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/Createcss.css">
+
+<style>
+    .backbutton {
+        background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+        border-radius: .5rem;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        display: flex;
+        font-size: 16px;
+        justify-content: center;
+        padding: 1rem 1.75rem;
+        text-decoration: none;
+        width: 100%;
+        border: 0;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .backbutton:hover {
+            background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+        }
+
+</style>
+<body>
+
+<h1>Create</h1>
+<hr />    
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <h4>@ViewBag.success</h4>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="formbold-mb-5">
+                    <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="formbold-mb-5">
+                <label asp-for="Roll" class="control-label"></label>
+                <input asp-for="Roll" class="form-control" />
+                <span asp-validation-for="Roll" class="text-danger"></span>
+            </div>
+            <div class="formbold-mb-5">
+                <label asp-for="CNIC" class="control-label"></label>
+                <input asp-for="CNIC" class="form-control" />
+                <span asp-validation-for="CNIC" class="text-danger"></span>
+            </div>
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5 w-full">
+                        <label asp-for="Voucherphoto" class="control-label"></label>
+                        <input asp-for="Voucherphoto" class="form-control" />
+                        <span asp-validation-for="Voucherphoto" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label asp-for="photo" class="control-label"></label>
+                        <input asp-for="photo" class="form-control" />
+                        <span asp-validation-for="photo" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formbold-mb-5 formbold-pt-3">
+                <div class="flex flex-wrap formbold--mx-3">
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label asp-for="Department" class="control-label"></label>
+                            <input asp-for="Department" class="form-control" />
+                            <span asp-validation-for="Department" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label asp-for="phonenumber" class="control-label"></label>
+                            <input asp-for="phonenumber" class="form-control" />
+                            <span asp-validation-for="phonenumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label asp-for="PickUp" class="control-label"></label>
+                            <input asp-for="PickUp" class="form-control" />
+                            <span asp-validation-for="PickUp" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label asp-for="RouteNo" class="control-label"></label>
+                            <input asp-for="RouteNo" class="form-control" />
+                            <span asp-validation-for="RouteNo" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label asp-for="Availability" class="control-label"></label>
+                            <input asp-for="Availability" class="form-control" disabled />
+                            <span asp-validation-for="Availability" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+
+                            <label asp-for="Card_issued_Date" class="control-label"></label>
+                            <input asp-for="Card_issued_Date" class="form-control" disabled />
+                            <span asp-validation-for="Card_issued_Date" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="backbutton mb-2">Add Student </button>
+            </div>
+            <div>
+
+                    <button class="backbutton" asp-action="List">Back to List</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+</body>
